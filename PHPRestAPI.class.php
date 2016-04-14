@@ -6,7 +6,7 @@
  * Abstract class for a PHP Rest API.
  * @author Simon Johansson <sijohans@kth.se>
  * @version 1.0.0
- * @package RESTApi
+ * @package PHPRestAPI
  *
  * Inspired by http://coreymaynard.com/blog/creating-a-restful-api-with-php/
  *

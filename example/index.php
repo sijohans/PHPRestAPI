@@ -6,7 +6,7 @@
  * Index file for Example API using PHPRestAPI skeleton.
  * @author Simon Johansson <sijohans@kth.se>
  * @version 1.0.0
- * @package RESTApi
+ * @package PHPRestAPI
  *
  */
 
