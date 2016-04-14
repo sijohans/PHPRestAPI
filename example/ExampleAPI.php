@@ -1,13 +1,17 @@
-# PHPRestAPI
-Skeleton for a PHP Rest API
+<?php
 
-Inspired by http://coreymaynard.com/blog/creating-a-restful-api-with-php
+/**
+ * ExampleAPI.php
+ * 
+ * Example API using PHPRestAPI skeleton.
+ * @author Simon Johansson <sijohans@kth.se>
+ * @version 1.0.0
+ * @package RESTApi
+ *
+ *
+ */
 
-## A Simple Example
-
-Create a class inheriting PHPRestAPI:
-```php
-require('PHPRestAPI.class.php');
+require('../PHPRestAPI.class.php');
 
 class ExampleAPI extends PHPRestAPI {
 
@@ -37,16 +41,3 @@ class ExampleAPI extends PHPRestAPI {
    }
 
 }
-```
-
-And index.php could look like:
-```php
-require('ExampleAPI.php');
-
-try {
-   $API = new ExampleAPI($_REQUEST['request']);
-   echo $API->processAPI();
-} catch (Exception $e) {
-   echo json_encode(Array('error' => $e->getMessage()));
-}
-```
