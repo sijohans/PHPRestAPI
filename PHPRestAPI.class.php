@@ -185,7 +185,7 @@ abstract class PHPRestAPI {
          511 => 'Network Authentication Required',
          599 => 'Network Connect Timeout Error'
       ); 
-      return ($status[$code]) ? $status[$code] : $status[500]; 
+      return (isset($status[$code])) ? $status[$code] : $status[500]; 
    }
 
 }
