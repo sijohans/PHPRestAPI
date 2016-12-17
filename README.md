@@ -43,6 +43,8 @@ And index.php could look like:
 ```php
 require('ExampleAPI.php');
 
+$_REQUEST['request'] = isset($_REQUEST['request']) ? $_REQUEST['request'] : '';
+
 try {
    $API = new ExampleAPI($_REQUEST['request']);
    echo $API->processAPI();

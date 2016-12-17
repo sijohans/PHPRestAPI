@@ -27,7 +27,7 @@ abstract class PHPRestAPI {
    public function __construct($request) {
 
       header('Access-Control-Allow-Origin: *');
-      header('Access-Control-Allow-Methods: *');
+      header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT');
       header('Content-Type: application/json');
 
       $this->request = $request;
@@ -54,6 +54,9 @@ abstract class PHPRestAPI {
          case 'PUT':
             $this->data = json_decode(file_get_contents('php://input'), true);
             break;
+         case 'OPTIONS':
+            header('Access-Control-Allow-Headers: Content-Type');
+            die();
          default:
             $this->response('Invalid Method', 405);
             break;
@@ -72,6 +75,12 @@ abstract class PHPRestAPI {
             if (method_exists($this, $route[2])) {
                try {
                   return $this->response($this->{$route[2]}());
+               } catch (PHPRestAPIException $e) {
+                  $code = ($e->getCode() != 0) ? $e->getCode() : 400;
+                  return $this->response(array(
+                     'message' => $e->getMessage(),
+                     'reasons' => $e->getErrors()
+                  ), $code);
                } catch (Exception $e) {
                   $code = ($e->getCode() != 0) ? $e->getCode() : 400;
                   return $this->response($e->getMessage(), $code);
@@ -186,6 +195,21 @@ abstract class PHPRestAPI {
          599 => 'Network Connect Timeout Error'
       ); 
       return (isset($status[$code])) ? $status[$code] : $status[500]; 
+   }
+
+}
+
+class PHPRestAPIException extends Exception {
+
+   private $errors;
+
+   public function __construct($message, $errors, $code = 404) {
+      parent::__construct($message, $code);
+      $this->errors = $errors;
+   }
+
+   public function getErrors() {
+      return $this->errors;
    }
 
 }
